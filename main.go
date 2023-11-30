@@ -28,19 +28,6 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 	default:
 		fmt.Fprint(w, "Not Found")
 	}
-	// if r.URL.Path == "/" {
-	// 	homeHandler(w, r)
-	// 	return
-	// } else if r.URL.Path == "/contact" {
-	// 	contactHandler(w, r)
-	// 	return
-	// } else if r.URL.Path == "/users" {
-	// 	userHandler(w, r)
-	// 	return
-	// } else {
-	// 	fmt.Fprint(w, "Not Found")
-	// 	return
-	// }
 }
 
 func main() {
