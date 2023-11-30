@@ -17,10 +17,24 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "<h1> Our Contact info ...</h1>")
 }
 
+func pathHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/" {
+		homeHandler(w, r)
+		return
+	} else if r.URL.Path == "/contact" {
+		contactHandler(w, r)
+		return
+	} else if r.URL.Path == "/users" {
+		userHandler(w, r)
+		return
+	} else {
+		fmt.Fprint(w, "Not Found")
+		return
+	}
+}
+
 func main() {
-	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/contact", contactHandler)
-	http.HandleFunc("/users", userHandler)
+	http.HandleFunc("/", pathHandler)
 
 	fmt.Println("Listening on port 3000")
 	http.ListenAndServe(":3000", nil)
