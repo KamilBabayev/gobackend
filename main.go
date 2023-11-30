@@ -18,19 +18,29 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func pathHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/" {
+	switch r.URL.Path {
+	case "/":
 		homeHandler(w, r)
-		return
-	} else if r.URL.Path == "/contact" {
-		contactHandler(w, r)
-		return
-	} else if r.URL.Path == "/users" {
+	case "/users":
 		userHandler(w, r)
-		return
-	} else {
+	case "/contact":
+		contactHandler(w, r)
+	default:
 		fmt.Fprint(w, "Not Found")
-		return
 	}
+	// if r.URL.Path == "/" {
+	// 	homeHandler(w, r)
+	// 	return
+	// } else if r.URL.Path == "/contact" {
+	// 	contactHandler(w, r)
+	// 	return
+	// } else if r.URL.Path == "/users" {
+	// 	userHandler(w, r)
+	// 	return
+	// } else {
+	// 	fmt.Fprint(w, "Not Found")
+	// 	return
+	// }
 }
 
 func main() {
