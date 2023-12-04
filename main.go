@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 type Router struct{}
@@ -47,8 +48,14 @@ func faqHandler(w http.ResponseWriter, r *http.Request) {
 	`)
 }
 
+func userIDHandler(w http.ResponseWriter, r *http.Request) {
+	userID := chi.URLParam(r, "userID")
+	fmt.Fprint(w, "user id is: ", userID)
+}
+
 func main() {
 	r := chi.NewRouter()
+	r.Use(middleware.Logger)
 	r.Get("/", homeHandler)
 	r.Get("/users", userHandler)
 	r.Get("/contact", contactHandler)
@@ -56,6 +63,8 @@ func main() {
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Page not found", http.StatusNotFound)
 	})
+
+	r.Get("/app/{userID}", userIDHandler)
 
 	fmt.Println("Listening on port 3000")
 	http.ListenAndServe(":3000", r)
